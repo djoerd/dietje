@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="favicon.png" />
+
+    <title>Prof. Dietje</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="css/dietje.css" rel="stylesheet" />
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/dietje/">Prof. Dietje</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="students.html">Students</a></li>
+            <li class="active"><a href="assignments.html">Assignments</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container theme-showcase">
+
+      <div class="page-header">
+        <h1>Assignments<span id="ofstudent"></span></h1>
+      </div>
+      <div class="row">
+        <div class="col-sm-8">
+          <p>
+          This is the progress report for <span id="student">the student</span>.<br />
+          </p>
+          <p> <hr /> </p>
+          <div id="assignments">
+            <img src="images/progress.gif" width="32" height="32" alt="Please wait" />
+          </div>          
+        </div>
+        <div class="col-sm-4">
+          <img src="images/dietje03.jpg"  class="img-thumbnail" alt="Prof. Dietjes" />
+        </div>
+      </div>
+    
+    </div> <!-- /container -->
+
+  <footer class="bs-footer" role="contentinfo">
+    <div class="container">
+      <p>University of Twente</p>
+    </div>
+  </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+      <!--
+      var params = window.location.search.substring(1);
+      var parts = params.split("&");
+      var course = "";
+      for (var i=0; i < parts.length; i++) {
+        var values = parts[i].split("=");
+        if (values[0] == 'course') {
+          course = values[1];
+        }
+        else if (values[0] == 'nickname') {
+          nickname = values[1];
+        }
+
+      } 
+
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.open("GET", 'assignments.json?course=' + course + '&nickname=' + nickname, false);
+      xmlHttp.send();
+      var json = JSON.parse(xmlHttp.responseText);
+      var assignments = json.assignments;
+      var result = '<div class="panel panel-default">';
+      result += '<div class="panel-heading"><p><strong>Average grade: 8.1</strong></p>';
+      result += ' <div class="progress">';
+      result += '  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">';
+      result += '   <span>60% Complete</span></div></div>';
+      result += '</div>';
+      result += '<table class="table">';
+      result += '<thead><tr><th>Assignment</th><th>Description</th><th>Grade</th></tr></thead>';
+      result += '<tbody>';
+      for (var i=0; i<assignments.length; i++) {
+        result += '<tr><td><a href="feedback.html?course=' + course + '&nickname=' + nickname + '&assignment=' + assignments[i].tag + '">' +  assignments[i].title + '</a></td>';
+        result += '<td>' + assignments[i].description + '</td>';
+        result += '<td>' + assignments[i].grade + '</td></tr>';
+      }
+      result += '</tbody></table></div>';
+      document.getElementById('assignments').innerHTML = result;
+      -->
+    </script>
+
+  </body>
+</html>
+

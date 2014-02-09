@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="favicon.png" />
+
+    <title>Prof. Dietje</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="css/dietje.css" rel="stylesheet" />
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/dietje/">Prof. Dietje</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="courses.html">Courses</a></li>
+            <li class="active"><a href="students.html">Students</a></li>
+            <li><a href="assignments.html">Assignments</a></li>
+            <li><a href="login.html">Login</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container theme-showcase">
+
+      <div class="page-header">
+        <h1>Students</h1>
+      </div>
+      <div class="row">
+        <div class="col-sm-8">
+          <p>
+          This is the leader board for <em><span id="course">the course</span></em>.<br />
+ If you are not there yet, then please register with one of the student assistants.
+          </p>
+          <p> <hr /> </p>
+          <div id="students">
+            <img src="images/progress.gif" width="32" height="32" alt="Please wait" />
+          </div>          
+        </div>
+        <div class="col-sm-4">
+          <img src="images/dietje01.jpg"  class="img-thumbnail" alt="Prof. Dietjes" />
+        </div>
+      </div>
+    
+    </div> <!-- /container -->
+
+  <footer class="bs-footer" role="contentinfo">
+    <div class="container">
+      <p>University of Twente</p>
+    </div>
+  </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+      <!--
+      var params = window.location.search.substring(1);
+      var parts = params.split("&");
+      var course = "";
+      for (var i=0; i < parts.length; i++) {
+        var values = parts[i].split("=");
+        if (values[0] == 'course') {
+          course = values[1];
+        }
+      } 
+
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.open("GET", 'students.json?course=' + course, false);
+      xmlHttp.send();
+      var json = JSON.parse(xmlHttp.responseText);
+      document.getElementById('course').innerHTML = json.course.name; 
+      var students = json.students;
+      var result = '<div class="panel panel-default">';
+      result += '<div class="panel-heading">Leader board</div>';
+      result += '<table class="table">';
+      result += '<thead><tr><th>#</th><th>Nickname</th><th>Name</th><th>Progress</th><th>Grade</th></tr></thead>';
+      result += '<tbody>';
+      for (var i=0; i<students.length; i++) {
+        result += '<tr><td>' + (i+1) + '</td>';
+        result += '<td><a href="assignments.html?course=' + course + '&nickname=' + students[i].nickname + '">' +  students[i].nickname + '</a></td>';
+        var realname = students[i].realname;
+        if (realname == null) { realname = '<em>anonymous</em>'; }
+        result += '<td>' + realname + '</td>';
+        var progress = students[i].progress;
+        if (progress == null) { progress = ''; }
+        else { progress += ' %'; }
+        result += '<td>' + progress + '</td>';
+        var grade = students[i].grade;
+        if (grade == null) { grade = ''; }
+        result += '<td>' + grade + '</td></tr>';
+      }
+      result += '</tbody></table></div>';
+      document.getElementById('students').innerHTML = result;
+      -->
+    </script>
+
+  </body>
+</html>
+
