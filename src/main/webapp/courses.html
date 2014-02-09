@@ -74,6 +74,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery-1.10.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/dietje.js"></script>
     <script>
       <!--
       var xmlHttp = new XMLHttpRequest();
@@ -81,14 +82,16 @@
       xmlHttp.send();
       var json = JSON.parse(xmlHttp.responseText);
       var courses = json.courses;
-      var result = '<div class="list-group">';
+      var result = '<div class="panel panel-default">';
+      result += '<div class="panel-heading">Courses</div>';
+      result += '<div class="list-group">';
       for (var i=0; i < courses.length; i++) {
         result += '<a class="list-group-item" href="students.html?course=' + courses[i].tag + '">';
         result += courses[i].name;
         result += '<span class="badge">' + courses[i].enrolled + '</span>';
         result += '</a>';
       }
-      result += '</ul>';
+      result += '</div></div>';
       document.getElementById('courses').innerHTML = result;
       -->
     </script>

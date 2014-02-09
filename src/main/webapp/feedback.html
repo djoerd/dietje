@@ -33,7 +33,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li><a href="courses.html">Courses</a></li>
-            <li class="active"><a href="students.html">Students</a></li>
+            <li><a href="students.html">Students</a></li>
             <li><a href="assignments.html">Assignments</a></li>
             <li><a href="login.html">Login</a></li>
           </ul>
@@ -44,21 +44,20 @@
     <div class="container theme-showcase">
 
       <div class="page-header">
-        <h1>Students</h1>
+        <h1>Feedback<span id="forassignment"></span></h1>
       </div>
       <div class="row">
         <div class="col-sm-8">
           <p>
-          This is the leader board for <em><span id="course">the course</span></em>.<br />
- If you are not there yet, then please register with one of the student assistants.
+          <span id="description"></span>
           </p>
           <p> <hr /> </p>
-          <div id="students">
+          <div id="feedback">
             <img src="images/progress.gif" width="32" height="32" alt="Please wait" />
           </div>          
         </div>
         <div class="col-sm-4">
-          <img src="images/dietje01.jpg"  class="img-thumbnail" alt="Prof. Dietjes" />
+          <img src="images/dietje03.jpg"  class="img-thumbnail" alt="Prof. Dietjes" />
         </div>
       </div>
     
@@ -75,45 +74,19 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery-1.10.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/dietje.js"></script>
     <script>
       <!--
-      var params = window.location.search.substring(1);
-      var parts = params.split("&");
-      var course = "";
-      for (var i=0; i < parts.length; i++) {
-        var values = parts[i].split("=");
-        if (values[0] == 'course') {
-          course = values[1];
-        }
-      } 
 
+      var params = dietjeUrlParameters();
       var xmlHttp = new XMLHttpRequest();
-      xmlHttp.open("GET", 'services/students.json?course=' + course, false);
+      xmlHttp.open("GET", 'feedback.json?course=' + params.course + '&nickname=' + params.nickname + '&assignment=' + params.assignment, false);
       xmlHttp.send();
       var json = JSON.parse(xmlHttp.responseText);
-      document.getElementById('course').innerHTML = json.course.name; 
-      var students = json.students;
-      var result = '<div class="panel panel-default">';
-      result += '<div class="panel-heading">Leader Board</div>';
-      result += '<div class="list-group">';
-      for (var i=0; i < students.length; i++) {
-        var realname = students[i].realname;
-        if (realname == null) { realname = '<em>anonymous</em>'; }
-        result += '<a class="list-group-item" href="assignments.html?course=' + course + '&nickname=' + students[i].nickname + '"><strong>' + (i+1) + '. ' + students[i].nickname + '</strong> (' + realname + ') ';
-        var progress = students[i].progress;
-        if (progress == null) { progress = ''; }
-        else { 
-          progress += '%'; 
-          var grade = students[i].grade;
-          if (grade != null) { 
-            progress += ' / ' + grade; 
-          }  
-        }
-        result += '<span class="badge">' + progress + '</span>';
-        result += '</a>';
-      }
-      result += '</div></div>';
-      document.getElementById('students').innerHTML = result;
+      var feedback = json.feedback;
+      var result = '<pre>Bla</pre>';
+      result += '</tbody></table></div>';
+      document.getElementById('feedback').innerHTML = result;
       -->
     </script>
 

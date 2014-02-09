@@ -10,10 +10,18 @@
         <servlet-name>CourseServlet</servlet-name>
         <servlet-class>nl.utwente.dietje.CourseServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StudentServlet</servlet-name>
+        <servlet-class>nl.utwente.dietje.StudentServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>CourseServlet</servlet-name>
         <url-pattern>/services/courses.json</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StudentServlet</servlet-name>
+        <url-pattern>/services/students.json</url-pattern>
     </servlet-mapping>
 
 </web-app>
