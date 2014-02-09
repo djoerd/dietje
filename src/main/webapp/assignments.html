@@ -89,14 +89,13 @@
       var assignments = json.assignments;
       if (student.progress == null) { student.progress = "0"; }
       var result = '<div class="panel panel-default">';
-      result += '<div class="panel-heading">Assignments</div>';
-      result += '<div class="panel-body">';
-      result += ' <div class="progress">';
-      result += '  <div class="progress-bar" role="progressbar" aria-valuenow="' + student.progress + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + student.progress + '%;">';
-      result += '   <span>' + student.progress + '% Complete</span></div></div>';
-      if (student.grade != null) { 
-        result += 'Average grade: ' + student.grade;
+      result += '<div class="panel-heading"><p>Assignments';
+      if (student.grade != null) {
+        result += ' (average grade: ' + student.grade + ')';
       }
+      result += '</p><div class="progress">';
+      result += '  <div class="progress-bar" role="progressbar" aria-valuenow="' + student.progress + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + student.progress + '%;">';
+      result += '  <span>' + student.progress + '% Complete</span></div></div>';
       result += '</div>';
 
       for (var i=0; i < assignments.length; i++) {
