@@ -18,6 +18,10 @@
         <servlet-name>AssignmentServlet</servlet-name>
         <servlet-class>nl.utwente.dietje.AssignmentServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FeedbackServlet</servlet-name>
+        <servlet-class>nl.utwente.dietje.FeedbackServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>CourseServlet</servlet-name>
@@ -30,6 +34,10 @@
     <servlet-mapping>
         <servlet-name>AssignmentServlet</servlet-name>
         <url-pattern>/services/assignments.json</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedbackServlet</servlet-name>
+        <url-pattern>/services/feedback.json</url-pattern>
     </servlet-mapping>
 
 </web-app>

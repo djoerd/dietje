@@ -51,7 +51,6 @@
           <p>
           <span id="description"></span>
           </p>
-          <p> <hr /> </p>
           <div id="feedback">
             <img src="images/progress.gif" width="32" height="32" alt="Please wait" />
           </div>          
@@ -80,12 +79,32 @@
 
       var params = dietjeUrlParameters();
       var xmlHttp = new XMLHttpRequest();
-      xmlHttp.open("GET", 'feedback.json?course=' + params.course + '&nickname=' + params.nickname + '&assignment=' + params.assignment, false);
+      xmlHttp.open("GET", 'services/feedback.json?course=' + params.course + '&nickname=' + params.nickname + '&assignment=' + params.assignment, false);
       xmlHttp.send();
       var json = JSON.parse(xmlHttp.responseText);
       var feedback = json.feedback;
-      var result = '<pre>Bla</pre>';
-      result += '</tbody></table></div>';
+      var result = '';
+      var message = feedback.message;
+      if (message != null) {
+        result += '<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+        result += message + '</div>';
+      }
+      var grade = feedback.grade;
+      if (grade != null) { 
+        var alert = 'success';
+        if (grade < 3.5) { alert = 'danger'; }
+        else if (grade < 5.5) { alert = 'warning'; }
+        else if (grade < 7.5) { alert = 'info'; }
+        result += '<div class="alert alert-' + alert + '">';
+        result += '<strong>Grade = ' + grade + '</strong></div>';
+      }
+      result += '<p><button type="button" class="btn btn-default">Request new grade</button></p><p> <hr /> </p>';
+
+      var motivation = feedback.motivation;
+      if (motivation != null) {
+        result += '<pre>' + motivation + '</pre>';
+      } 
+
       document.getElementById('feedback').innerHTML = result;
       -->
     </script>
