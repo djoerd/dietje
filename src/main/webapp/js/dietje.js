@@ -25,5 +25,5 @@ function dietjeUrlParameters() {
     }
   }
   return params;
-}`
+}
 

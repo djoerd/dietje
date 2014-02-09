@@ -14,6 +14,10 @@
         <servlet-name>StudentServlet</servlet-name>
         <servlet-class>nl.utwente.dietje.StudentServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AssignmentServlet</servlet-name>
+        <servlet-class>nl.utwente.dietje.AssignmentServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>CourseServlet</servlet-name>
@@ -22,6 +26,10 @@
     <servlet-mapping>
         <servlet-name>StudentServlet</servlet-name>
         <url-pattern>/services/students.json</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AssignmentServlet</servlet-name>
+        <url-pattern>/services/assignments.json</url-pattern>
     </servlet-mapping>
 
 </web-app>

@@ -74,42 +74,43 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery-1.10.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/dietje.js"></script>
     <script>
       <!--
-      var params = window.location.search.substring(1);
-      var parts = params.split("&");
-      var course = "";
-      for (var i=0; i < parts.length; i++) {
-        var values = parts[i].split("=");
-        if (values[0] == 'course') {
-          course = values[1];
-        }
-        else if (values[0] == 'nickname') {
-          nickname = values[1];
-        }
-
-      } 
+      var params = dietjeUrlParameters();
+      document.getElementById('ofstudent').innerHTML = ' of ' + params.nickname;
 
       var xmlHttp = new XMLHttpRequest();
-      xmlHttp.open("GET", 'assignments.json?course=' + course + '&nickname=' + nickname, false);
+      xmlHttp.open("GET", 'services/assignments.json?course=' + params.course + '&nickname=' + params.nickname, false);
       xmlHttp.send();
       var json = JSON.parse(xmlHttp.responseText);
+      var course = json.course;
+      var student = json.student;
       var assignments = json.assignments;
+      if (student.progress == null) { student.progress = "0"; }
       var result = '<div class="panel panel-default">';
-      result += '<div class="panel-heading"><p><strong>Average grade: 8.1</strong></p>';
+      result += '<div class="panel-heading">Assignments</div>';
+      result += '<div class="panel-body">';
       result += ' <div class="progress">';
-      result += '  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">';
-      result += '   <span>60% Complete</span></div></div>';
-      result += '</div>';
-      result += '<table class="table">';
-      result += '<thead><tr><th>Assignment</th><th>Description</th><th>Grade</th></tr></thead>';
-      result += '<tbody>';
-      for (var i=0; i<assignments.length; i++) {
-        result += '<tr><td><a href="feedback.html?course=' + course + '&nickname=' + nickname + '&assignment=' + assignments[i].tag + '">' +  assignments[i].title + '</a></td>';
-        result += '<td>' + assignments[i].description + '</td>';
-        result += '<td>' + assignments[i].grade + '</td></tr>';
+      result += '  <div class="progress-bar" role="progressbar" aria-valuenow="' + student.progress + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + student.progress + '%;">';
+      result += '   <span>' + student.progress + '% Complete</span></div></div>';
+      if (student.grade != null) { 
+        result += 'Average grade: ' + student.grade;
       }
-      result += '</tbody></table></div>';
+      result += '</div>';
+
+      for (var i=0; i < assignments.length; i++) {
+        var description = assignments[i].description;
+        if (description == null) { realname = '-'; }
+        result += '<a class="list-group-item" href="feedback.html?course=' + 
+params.course + '&nickname=' + params.nickname + '&assignment=' + assignments[i].tag + '"><strong>' + assignments[i].title + '</strong>' ;
+        var grade = assignments[i].grade;
+        if (grade != null) { 
+          result += '<span class="badge">' + grade + '</span>';
+        }
+        result += '<br />' + assignments[i].description + '</a>';
+      }
+      result += '</div>';
       document.getElementById('assignments').innerHTML = result;
       -->
     </script>
