@@ -1,27 +1,27 @@
 create table course (
   cid varchar(16) not null, 
-  name varchar, 
-  primary key(cid)
+  name varchar(255),
+  constraint pk_cid primary key(cid) 
 );
 create table assignment (
   aid varchar(16) not null,
   cid varchar(16),
-  title varchar,
-  description varchar,
-  primary key(aid),
-  foreign key(cid) references course(cid)
+  title varchar(32),
+  description varchar(255),
+  constraint pk_aid primary key(aid),
+  constraint fk_cid foreign key(cid) references course(cid)
 );
 create table student (
   sid varchar(16) not null, 
-  github_id varchar, 
-  realname varchar, 
-  unique(github_id), 
-  primary key(sid) 
+  github_id varchar(32), 
+  realname varchar(32), 
+  constraint pk_sid primary key(sid),
+  unique(github_id)
 );
 create table professor (
   pid varchar(16) not null,
-  name varchar,
-  primary key(pid)
+  name varchar(32),
+  constraint pk_pid primary key(pid)
 );
 create table submits (
   aid varchar(16),
@@ -32,7 +32,7 @@ create table submits (
   grade float,
   attempts int,
   primary key(aid, sid),
-  foreign key (aid) references course(aid),
+  foreign key (aid) references assignment(aid),
   foreign key (sid) references student(sid),
   foreign key (pid) references professor(pid)
 );
