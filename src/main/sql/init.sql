@@ -1,5 +1,10 @@
-create database dietje;
-use dietje;
-create user dietje;
-grant usage on *.* to dietje@localhost identified by 'changethis';
-grant all privileges on dietje.* to dietje@localhost;
+CREATE DATABASE dietje;
+--  for MySQL
+-- CREATE USER dietje;
+-- GRANT ALL PRIVILEGES ON dietje.* TO dietje@localhost IDENTIFIED BY 'changeit';
+--  for PostgreSQL
+CREATE USER dietje WITH PASSWORD 'changeit';
+GRANT ALL PRIVILEGES ON DATABASE dietje TO dietje;
+
+
+
