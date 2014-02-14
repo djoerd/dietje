@@ -31,7 +31,7 @@ create table submits (
   feedback_date date,
   grade float,
   attempts int,
-  primary key(aid, sid),
+  constraint pk_asid primary key(aid, sid),
   foreign key (aid) references assignment(aid),
   foreign key (sid) references student(sid),
   foreign key (pid) references professor(pid)
