@@ -11,7 +11,7 @@ public class DietjeDatabase {
 
     private final static String url = 
       //"jdbc:postgresql://localhost/dietje?user=dietje&password=changeit";
-      "jdbc:mysql://localhost/dietje?user=dietje&password=changeit";
+      "jdbc:mysql://localhost/dietje?user=dietje&password=";
 
     private Connection connection;
 
