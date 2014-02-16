@@ -8,7 +8,7 @@ insert into course (cid, name) values ('utwente-mdb', 'Managing Big Data');
 insert into student (sid, github_id, realname) values ('m76426485', 'djoerd', 'Djoerd Hiemtra');
 insert into student (sid, github_id, realname) values ('m72983120', 'lferreirapires', 'Luis Ferreira Pires');
 insert into student (sid, github_id) values ('s01231485', 'dutchprostudent22');
-insert into student (sid, github_id) values ('group01', 'group01');
+insert into student (sid, github_id, realname) values ('group01', 'group01', 'Klaas, Maurice, Djoerd, Luis');
 -- assignments
 insert into assignment (aid, cid, title, description) values ('assign01', 'assign-di', 'Assignment 1', 'Introduction to git and sql');
 insert into assignment (aid, cid, title, description) values ('assign02', 'assign-di', 'Assignment 2', 'Git branching and maven');

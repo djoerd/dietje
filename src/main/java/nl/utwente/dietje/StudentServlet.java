@@ -19,33 +19,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONValue;
 
+import nl.utwente.dietje.DietjeDatabase;
+
 
 public class StudentServlet extends HttpServlet {
 
-    private Map getCourse(Connection connection, String courseID) throws IOException {
-        Map course = new LinkedHashMap<String, Object>();
-        try {
-            PreparedStatement statement = connection.prepareStatement(
-              "SELECT c.name, c.cid AS tag, COUNT(a.aid) AS nr_assign FROM course c, assignment a WHERE c.cid = a.cid AND c.cid = ?");
-            statement.setString(1, courseID);
-            ResultSet set = statement.executeQuery();
-            if (set.next()) {
-                course.put("name", set.getString("name"));
-                course.put("tag", set.getString("tag"));
-                course.put("nr_assign", set.getInt("nr_assign"));
-            }
-        } catch (SQLException e) {
-            throw new IOException(e);
-        }
-        return course;
-    }
         
-    private List getStudents(Connection connection, String courseID, Integer nr_assign) throws IOException { 
+    private List getStudents(Connection connection, String courseID) throws IOException { 
         List students  = new ArrayList<Object>();
         try {
             PreparedStatement statement = connection.prepareStatement( 
-              "SELECT t.sid AS nickname, t.realname, COUNT(CASE WHEN s.grade >= 3.5 THEN 1 END) / ? AS progress, AVG(s.grade) AS grade FROM assignment a, submits s, student t WHERE a.cid = ? AND a.aid= s.aid AND s.sid = t.sid GROUP BY t.sid, t.realname");
-            statement.setInt(1, nr_assign);
+              "SELECT t.github_id AS nickname, t.realname, COUNT(CASE WHEN s.grade >= 3.5 THEN 1 END) / (SELECT COUNT(*) FROM assignment a, course c WHERE a.cid = c.cid AND c.cid = ?) AS progress, AVG(s.grade) AS grade FROM assignment a, submits s, student t WHERE a.cid = ? AND a.aid= s.aid AND s.sid = t.sid GROUP BY t.sid, t.realname");
+            statement.setString(1, courseID);
             statement.setString(2, courseID);
             ResultSet set = statement.executeQuery();
             while (set.next()) {
@@ -70,11 +55,10 @@ public class StudentServlet extends HttpServlet {
         DietjeDatabase database = new DietjeDatabase();
         Connection connection = database.connect();
         Map resultMap = new LinkedHashMap<String, Object>();
-        Map course = getCourse(connection, courseID);
+        Map course = database.getCourse(connection, courseID);
         resultMap.put("course", course);
-        Integer nr_assign = (Integer) course.get("nr_assign");
-        if (nr_assign != null) {
-            List students = getStudents(connection, courseID, nr_assign);
+        if (course.containsKey("tag")) {
+            List students = getStudents(connection, courseID);
             resultMap.put("students", students);
         }
         writer.print(JSONValue.toJSONString(resultMap));

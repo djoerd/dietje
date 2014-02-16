@@ -91,7 +91,7 @@
       for (var i=0; i < students.length; i++) {
         var realname = students[i].realname;
         if (realname == null) { realname = '<em>anonymous</em>'; }
-        result += '<a class="list-group-item" href="assignments.html?course=' + params.course + '&nickname=' + students[i].nickname + '"><strong>' + (i+1) + '. ' + students[i].nickname + '</strong> (' + realname + ') ';
+        result += '<a class="list-group-item" href="assignments.html?course=' + params.course + '&nickname=' + students[i].nickname + '">' + (i+1) + '. ' + students[i].nickname + ' (' + realname + ') ';
         var progress = students[i].progress;
         if (progress == null) { progress = ''; }
         else { 
