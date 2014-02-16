@@ -23,20 +23,42 @@ import org.json.simple.JSONValue;
 
 public class AssignmentServlet extends HttpServlet {
 
-    protected void doWrite(PrintWriter writer, String courseID, String studentID) throws IOException {
+    private List getAssignments(Connection connection, String courseID, String nickname) throws IOException {
+        List assignments  = new ArrayList<Object>();
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+              "SELECT a.aid as tag, a.title, a.description, s.grade FROM (SELECT * FROM assignment where cid = ?) as a LEFT OUTER JOIN (SELECT * FROM submits where sid = ?) as s ON a.aid = s.aid");
+            statement.setString(1, courseID);
+            statement.setString(2, nickname);
+            ResultSet set = statement.executeQuery();
+            while (set.next()) {
+                Map assignment = new LinkedHashMap<String, Object>();
+                assignment.put("tag", set.getString("tag"));
+                assignment.put("title", set.getString("title"));
+                String description = set.getString("description");
+                if (description != null) { assignment.put("description", description); }
+                Float grade = set.getFloat("grade"); 
+                if (grade != null && grade > 0.0) { assignment.put("grade", grade); }
+                assignments.add(assignment);
+            }
+        } catch (SQLException e) {
+            throw new IOException(e);
+        }
+        return assignments;
+    }
+
+
+    protected void doWrite(PrintWriter writer, String courseID, String nickname) throws IOException {
         DietjeDatabase database = new DietjeDatabase();
         Connection connection = database.connect();
         Map resultMap = new LinkedHashMap<String, Object>();
         Map course = database.getCourse(connection, courseID);
         resultMap.put("course", course);
-        if (course.containsKey("tag")) {
-            Map student = database.getStudent(connection, courseID, studentID);
-            resultMap.put("student", student);
-        }
+        Map student = database.getStudent(connection, courseID, nickname);
+        resultMap.put("student", student);
+        List assignments = getAssignments(connection, courseID, nickname);
+        resultMap.put("assignments", assignments);
         writer.print(JSONValue.toJSONString(resultMap));
-        
-
-        //writer.print("{ \"course\": { \"name\": \"Data and Information Assignments\" }, \"student\": { \"nickname\": \"lferreirapires\", \"realname\": \"Luis Ferreira Pires\", \"progress\": \"95\", \"grade\": \"8.1\" }, \"assignments\": [ { \"tag\": \"assignment01\", \"title\": \"Assignment 1\", \"description\": \"Getting to know git and SQL\", \"grade\": \"7.1\" }, { \"tag\": \"assignment02\", \"title\": \"Assignment 2\", \"grade\": \"9.0\" }, { \"tag\": \"assignment03\", \"title\": \"Assignment 3\" }, { \"tag\": \"assignment04\", \"title\": \"Assignment 4\" }, { \"tag\": \"assignment05\", \"title\": \"Assignment 5\" }, { \"tag\": \"assignment06\", \"title\": \"Assignment 6\" }, { \"tag\": \"assignment07\", \"title\": \"Assignment 7\" }, { \"tag\": \"assignment08\", \"title\": \"Assignment 8\" }, { \"tag\": \"assignment09\", \"title\": \"Assignment 9\" } ] } ");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse 
@@ -44,6 +66,6 @@ public class AssignmentServlet extends HttpServlet {
         response.setContentType("application/json");
         doWrite(response.getWriter(), 
                 request.getParameter("course"), 
-                request.getParameter("student"));
+                request.getParameter("nickname"));
     }
 }

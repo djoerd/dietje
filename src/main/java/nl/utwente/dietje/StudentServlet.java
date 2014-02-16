@@ -29,7 +29,7 @@ public class StudentServlet extends HttpServlet {
         List students  = new ArrayList<Object>();
         try {
             PreparedStatement statement = connection.prepareStatement( 
-              "SELECT t.github_id AS nickname, t.realname, COUNT(CASE WHEN s.grade >= 3.5 THEN 1 END) / (SELECT COUNT(*) FROM assignment a, course c WHERE a.cid = c.cid AND c.cid = ?) AS progress, AVG(s.grade) AS grade FROM assignment a, submits s, student t WHERE a.cid = ? AND a.aid= s.aid AND s.sid = t.sid GROUP BY t.sid, t.realname");
+              "SELECT t.sid AS nickname, t.realname, SUM(CASE WHEN s.grade >= 3.5 THEN 100 ELSE 0 END) / (SELECT COUNT(*) FROM assignment a, course c WHERE a.cid = c.cid AND c.cid = ?) AS progress, AVG(s.grade) AS grade FROM assignment a, submits s, student t WHERE a.cid = ? AND a.aid= s.aid AND s.sid = t.sid GROUP BY t.sid, t.realname ORDER BY progress DESC, grade DESC");
             statement.setString(1, courseID);
             statement.setString(2, courseID);
             ResultSet set = statement.executeQuery();
@@ -38,8 +38,10 @@ public class StudentServlet extends HttpServlet {
                 student.put("nickname", set.getString("nickname"));
                 String realname = set.getString("realname");
                 if (realname != null) { student.put("realname", realname); }
-                student.put("progress", set.getFloat("progress"));
-                student.put("grade", set.getFloat("grade")); 
+                Float progress = set.getFloat("progress");
+                if (progress != null) { student.put("progress", Math.round(progress)); }
+                Float grade = set.getFloat("grade");
+                if (grade != null && grade > 0.0) { student.put("grade", grade); }
                 students.add(student);
             }
         } catch (SQLException e) {

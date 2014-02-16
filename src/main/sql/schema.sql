@@ -6,17 +6,17 @@ create table course (
 create table assignment (
   aid varchar(16) not null,
   cid varchar(16),
-  title varchar(32),
+  title varchar(32) not null,
   description varchar(255),
   constraint pk_aid primary key(aid),
   constraint fk_cid foreign key(cid) references course(cid)
 );
 create table student (
   sid varchar(16) not null, 
-  github_id varchar(32), 
+  studentNr varchar(16) not null, 
   realname varchar(32), 
   constraint pk_sid primary key(sid),
-  unique(github_id)
+  unique(studentNr)
 );
 create table professor (
   pid varchar(16) not null,
