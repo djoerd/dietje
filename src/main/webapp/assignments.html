@@ -51,13 +51,13 @@
           <p>
           This is the progress report for <span id="student">the student</span>.<br />
           </p>
-          <p> <hr /> </p>
+          <hr />
           <div id="assignments">
             <img src="images/progress.gif" width="32" height="32" alt="Please wait" />
           </div>          
         </div>
         <div class="col-sm-4">
-          <img src="images/dietje03.jpg"  class="img-thumbnail" alt="Prof. Dietjes" />
+          <img src="images/dietje02.jpg"  class="img-thumbnail" alt="Prof. Dietjes" />
         </div>
       </div>
     
@@ -89,26 +89,25 @@
       var assignments = json.assignments;
       if (student.progress == null) { student.progress = "0"; }
       var result = '<div class="panel panel-default">';
-      result += '<div class="panel-heading"><p>Assignments';
-      if (student.grade != null) {
-        result += ' (average grade: ' + student.grade + ')';
-      }
-      result += '</p><div class="progress">';
-      result += '  <div class="progress-bar" role="progressbar" aria-valuenow="' + student.progress + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + student.progress + '%;">';
-      result += '  <span>' + student.progress + '% Complete</span></div></div>';
-      result += '</div>';
-
+      result += '<div class="panel-heading">Assignments</div>';
       for (var i=0; i < assignments.length; i++) {
         var description = assignments[i].description;
         if (description == null) { realname = '-'; }
         result += '<a class="list-group-item" href="feedback.html?course=' + 
-params.course + '&nickname=' + params.nickname + '&assignment=' + assignments[i].tag + '"><strong>' + assignments[i].title + '</strong>' ;
+params.course + '&nickname=' + params.nickname + '&assignment=' + assignments[i].tag + '">' + assignments[i].title;
         var grade = assignments[i].grade;
         if (grade != null) { 
           result += '<span class="badge">' + grade + '</span>';
         }
-        result += '<br />' + assignments[i].description + '</a>';
+        result += ', ' + assignments[i].description + '</a>';
       }
+      result += '<div class="panel-footer"><p>Progress: ';
+      if (student.grade != null) {
+        result += '<span class="badge">' + student.grade + '</span>';
+      }
+      result += '</p><div class="progress">';
+      result += '  <div class="progress-bar" role="progressbar" aria-valuenow="' + student.progress + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + student.progress + '%;">';
+      result += '  <span>' + student.progress + '% Complete</span></div></div>';
       result += '</div>';
       document.getElementById('assignments').innerHTML = result;
       -->

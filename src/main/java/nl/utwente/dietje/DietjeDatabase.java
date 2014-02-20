@@ -75,7 +75,7 @@ public class DietjeDatabase {
                 Float progress = set.getFloat("progress");
                 if (progress != null) { student.put("progress", Math.round(progress)); }
                 Float grade = set.getFloat("grade");
-                if (grade != null && grade > 0.0) { student.put("grade", grade); }
+                if (grade != null && grade > 0.0) { student.put("grade", Math.round(grade*10) / 10); }
             }
         } catch (SQLException e) {
             throw new IOException(e);
