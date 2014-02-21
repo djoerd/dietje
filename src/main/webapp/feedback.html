@@ -48,15 +48,18 @@
       </div>
       <div class="row">
         <div class="col-sm-8">
-          <p>
-          <span id="description"></span>
-          </p>
+          <div id="alert">
+          </div>
+          <div id="grade">
+          </div>
+          <div><button type="button" class="btn btn-default" id="requestGrade">Request new grade</button></div>
+          <hr />
           <div id="feedback">
             <img src="images/progress.gif" width="32" height="32" alt="Please wait" />
           </div>          
         </div>
         <div class="col-sm-4">
-          <img src="images/dietje03.jpg"  class="img-thumbnail" alt="Prof. Dietjes" />
+          <img src="images/dietje03.jpg"  class="img-thumbnail" alt="Prof. Dietje" />
         </div>
       </div>
     
@@ -77,18 +80,36 @@
     <script>
       <!--
 
+    $('#requestGrade').on('click', function (event) {
+        event.preventDefault();
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("POST", "services/request.json", false);
+        xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlHttp.send('course=' + params.course + '&nickname=' + params.nickname + '&assignment=' + params.assignment);
+        var json = JSON.parse(xmlHttp.responseText);
+        if (json.message == null) {
+            printAlert('Sorry, prof. Dietje could not be reached. Try again later.');
+        } else {
+            printAlert(json.message);
+        }
+    });
+
+    function printAlert(message) {
+        var alert = '<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+        alert += message + '</div>';
+        document.getElementById('alert').innerHTML = alert;
+    }
+
       var params = dietjeUrlParameters();
       var xmlHttp = new XMLHttpRequest();
       xmlHttp.open("GET", 'services/feedback.json?course=' + params.course + '&nickname=' + params.nickname + '&assignment=' + params.assignment, false);
       xmlHttp.send();
       var json = JSON.parse(xmlHttp.responseText);
       var feedback = json.feedback;
-      var result = '';
+      var alert = '';
       var message = feedback.message;
-      if (message != null) {
-        result += '<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
-        result += message + '</div>';
-      }
+
+      var result = ''
       var grade = feedback.grade;
       if (grade != null) { 
         var alert = 'success';
@@ -98,7 +119,6 @@
         result += '<div class="alert alert-' + alert + '">';
         result += '<strong>Grade = ' + grade + '</strong></div>';
       }
-      result += '<p><button type="button" class="btn btn-default">Request new grade</button></p><p> <hr /> </p>';
 
       var motivation = feedback.motivation;
       if (motivation != null) {

@@ -54,7 +54,8 @@
           <hr />
           <div id="assignments">
             <img src="images/progress.gif" width="32" height="32" alt="Please wait" />
-          </div>          
+          </div> 
+          <hr />         
         </div>
         <div class="col-sm-4">
           <img src="images/dietje02.jpg"  class="img-thumbnail" alt="Prof. Dietjes" />
@@ -103,7 +104,10 @@ params.course + '&nickname=' + params.nickname + '&assignment=' + assignments[i]
       }
       result += '<div class="panel-footer"><p>Progress: ';
       if (student.grade != null) {
-        result += '<span class="badge">' + student.grade + '</span>';
+        result += '<span class="badge">' + student.grade.toFixed(1) + '</span>';
+      }
+      else {
+        result += '(not started yet)';
       }
       result += '</p><div class="progress">';
       result += '  <div class="progress-bar" role="progressbar" aria-valuenow="' + student.progress + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + student.progress + '%;">';

@@ -22,6 +22,11 @@
         <servlet-name>FeedbackServlet</servlet-name>
         <servlet-class>nl.utwente.dietje.FeedbackServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RequestServlet</servlet-name>
+        <servlet-class>nl.utwente.dietje.RequestServlet</servlet-class>
+    </servlet>
+
 
     <servlet-mapping>
         <servlet-name>CourseServlet</servlet-name>
@@ -39,6 +44,11 @@
         <servlet-name>FeedbackServlet</servlet-name>
         <url-pattern>/services/feedback.json</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RequestServlet</servlet-name>
+        <url-pattern>/services/request.json</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>
 

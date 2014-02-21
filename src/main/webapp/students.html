@@ -98,7 +98,7 @@
           progress += '%'; 
           var grade = students[i].grade;
           if (grade != null) { 
-            progress += ' / ' + grade; 
+            progress += ' / ' + grade.toFixed(1); 
           }  
         }
         result += '<span class="badge">' + progress + '</span>';
