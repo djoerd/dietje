@@ -47,8 +47,6 @@ public class FeedbackServlet extends HttpServlet {
         Map resultMap = new LinkedHashMap<String, Object>();
         resultMap.put("feedback", feedback);
         writer.print(JSONValue.toJSONString(resultMap));
-
-        //writer.print("{ \"feedback\": { \"tag\": \"assignment01\", \"title\": \"Assignment 1\", \"description\": \"Getting to know git and SQL\", \"message\": \"You requested a new grade. Prof. Dietje will grade your assignment in 20 minutes.\", \"grade\": \"9.3\", \"motivation\": \"Prof. Dietje says: Welcome lferreirapires.\\nI will grade your results for 'practicum01'.\" } } ");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse 
