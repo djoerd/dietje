@@ -47,7 +47,10 @@ insert into assignment (aid, cid, title, description) values ('level21', 'utwent
 -- professor
 insert into professor (pid, name) values (1, 'Prof. Dietje');
 -- submits
-insert into submits (aid, sid, pid, request_date, feedback_date, grade) values ('assign01', 'djoerd', 1, '2014-02-14 20:24:12', '2014-02-14 20:42:53', 8.2);
+insert into submits (aid, sid, pid, request_date, feedback_date, grade, feedback) values ('assign01', 'djoerd', 1, '2014-02-14 20:24:12', '2014-02-14 20:42:53', 8.2, 'Prof. Dietje says: Welcome djoerd.
+I will grade your results for assign01
+1.1 ok
+1.2 ok');
 insert into submits (aid, sid, pid, request_date) values ('assign01', 'lferreirapires', 1, '2014-02-14 20:36:57');
 insert into submits (aid, sid, pid, request_date) values ('assign01', 'dutchprostudent22', 1, '2014-02-14 20:41:08');
 insert into submits (aid, sid, pid, request_date) values ('assign02', 'lferreirapires', 1, '2014-02-14 20:41:42');
