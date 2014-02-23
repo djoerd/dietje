@@ -76,7 +76,7 @@ public class RequestServlet extends HttpServlet {
                     updateSubmitted(connection, nickname, assignID, courseID);
                 }
                 else {
-                    alert += " You requested a new grade at " + request_date;
+                    alert += " You requested a new grade at " + request_date.substring(0,16);
                 }
             } 
         } catch (SQLException e) {

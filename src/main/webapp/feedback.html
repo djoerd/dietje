@@ -78,10 +78,11 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/dietje.js"></script>
     <script>
-      <!--
+    <!--
 
     $('#requestGrade').on('click', function (event) {
         event.preventDefault();
+        var params = dietjeUrlParameters();
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.open("POST", "services/request.json", false);
         xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -100,15 +101,10 @@
         document.getElementById('alert').innerHTML = alert;
     }
 
-      var params = dietjeUrlParameters();
-      var xmlHttp = new XMLHttpRequest();
-      xmlHttp.open("GET", 'services/feedback.json?course=' + params.course + '&nickname=' + params.nickname + '&assignment=' + params.assignment, false);
-      xmlHttp.send();
-      var json = JSON.parse(xmlHttp.responseText);
+   function printFeedback(json) {
       var feedback = json.feedback;
       var alert = '';
       var message = feedback.message;
-
       var result = ''
       var grade = feedback.grade;
       if (grade != null) { 
@@ -117,16 +113,32 @@
         else if (grade < 5.5) { alert = 'warning'; }
         else if (grade < 7.5) { alert = 'info'; }
         result += '<div class="alert alert-' + alert + '">';
-        result += '<strong>Grade = ' + grade + '</strong></div>';
+        result += '<strong>Grade = ' + grade + '</strong>';
+        var attempts = feedback.attempts;
+        if (attempts != null) {
+           result += ' (attempt ' + attempts + ')';
+        }
+        result += '</div>';
       }
-
       var motivation = feedback.motivation;
       if (motivation != null) {
         result += '<pre>' + motivation + '</pre><hr />';
       } 
-
       document.getElementById('feedback').innerHTML = result;
-      -->
+   }
+
+   function pollFeedback() {
+      var params = dietjeUrlParameters();
+      var url = 'services/feedback.json?course=' + params.course + '&nickname=' + params.nickname + '&assignment=' + params.assignment;
+       $.ajax({ url: url, success: function(data) {
+         printFeedback(data);
+       }, dataType: "json"});
+    }
+
+   pollFeedback();
+   setInterval(pollFeedback, 60000);
+
+   -->
     </script>
 
   </body>

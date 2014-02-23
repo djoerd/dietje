@@ -27,7 +27,7 @@ public class FeedbackServlet extends HttpServlet {
         Map feedback  = new LinkedHashMap<String, Object>();
         try {
             PreparedStatement statement = connection.prepareStatement(
-              "SELECT s.aid as tag, a.title, a.description, s.grade, s.feedback as motivation FROM submits s, assignment a WHERE s.aid = a.aid AND a.cid = ? AND s.sid = ? AND s.aid = ?");
+              "SELECT s.aid as tag, a.title, a.description, s.grade, s.attempts, s.feedback as motivation FROM submits s, assignment a WHERE s.aid = a.aid AND a.cid = ? AND s.sid = ? AND s.aid = ?");
             statement.setString(1, courseID);
             statement.setString(2, nickname);
             statement.setString(3, assignID);
@@ -38,6 +38,7 @@ public class FeedbackServlet extends HttpServlet {
                 if (description != null) { feedback.put("description", description); }
                 Float grade = set.getFloat("grade");
                 if (grade != null && grade > 0.0) { feedback.put("grade", grade); }
+                feedback.put("attempts", set.getInt("attempts"));
                 String motivation = set.getString("motivation");
                 if (motivation != null) { feedback.put("motivation", motivation); }
             }
