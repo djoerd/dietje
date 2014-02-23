@@ -30,7 +30,7 @@ create table submits (
   request_date datetime NOT NULL,
   feedback_date datetime,
   grade float,
-  attempts int DEFAULT 1,
+  attempts int NOT NULL DEFAULT 1,
   feedback varchar(65000),
   constraint pk_asid primary key(aid, sid),
   foreign key (aid) references assignment(aid),

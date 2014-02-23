@@ -45,27 +45,27 @@ insert into assignment (aid, cid, title, description) values ('level19', 'utwent
 insert into assignment (aid, cid, title, description) values ('level20', 'utwente-di', 'Task 20', 'Security analysis');
 insert into assignment (aid, cid, title, description) values ('level21', 'utwente-di', 'Task 21', 'Database transactions');
 -- professor
-insert into professor (pid, name) values (1, 'Prof. Dietje');
+insert into professor (pid, name) values ('dietje', 'Prof. Dietje');
 -- submits
-insert into submits (aid, sid, pid, request_date, feedback_date, grade, feedback) values ('assign01', 'djoerd', 1, '2014-02-14 20:24:12', '2014-02-14 20:42:53', 8.2, 'Prof. Dietje says: Welcome djoerd.
+insert into submits (aid, sid, pid, request_date, feedback_date, grade, feedback) values ('assign01', 'djoerd', 'dietje', '2014-02-14 20:24:12', '2014-02-14 20:42:53', 8.2, 'Prof. Dietje says: Welcome djoerd.
 I will grade your results for assign01
 1.1 ok
 1.2 ok');
-insert into submits (aid, sid, pid, request_date) values ('assign01', 'lferreirapires', 1, '2014-02-14 20:36:57');
-insert into submits (aid, sid, pid, request_date) values ('assign01', 'dutchprostudent22', 1, '2014-02-14 20:41:08');
-insert into submits (aid, sid, pid, request_date) values ('assign02', 'lferreirapires', 1, '2014-02-14 20:41:42');
-insert into submits (aid, sid, pid, request_date, feedback_date, grade) values ('level01', 'group00', 1, '2014-02-14 20:42:01', '2014-02-14 20:42:01', 7.6);
-insert into submits (aid, sid, pid, request_date, feedback_date, grade) values ('level02', 'group00', 1, '2014-02-14 20:43:01', '2014-02-14 20:43:02', 8.3);
-insert into submits (aid, sid, pid, request_date) values ('level01', 'group01', 1, '2014-02-14 20:42:01');
-insert into submits (aid, sid, pid, request_date) values ('level01', 'group02', 1, '2014-02-14 20:42:01');
-insert into submits (aid, sid, pid, request_date) values ('level01', 'group03', 1, '2014-02-14 20:42:01');
-insert into submits (aid, sid, pid, request_date) values ('level01', 'group04', 1, '2014-02-14 20:42:01');
-insert into submits (aid, sid, pid, request_date) values ('level01', 'group05', 1, '2014-02-14 20:42:01');
-insert into submits (aid, sid, pid, request_date) values ('level01', 'group06', 1, '2014-02-14 20:42:01');
-insert into submits (aid, sid, pid, request_date) values ('level01', 'group07', 1, '2014-02-14 20:42:01');
-insert into submits (aid, sid, pid, request_date) values ('level01', 'group08', 1, '2014-02-14 20:42:01');
-insert into submits (aid, sid, pid, request_date) values ('level01', 'group09', 1, '2014-02-14 20:42:01');
-insert into submits (aid, sid, pid, request_date) values ('level01', 'group10', 1, '2014-02-14 20:42:01');
+insert into submits (aid, sid, pid, request_date) values ('assign01', 'lferreirapires', 'dietje', '2014-02-14 20:36:57');
+insert into submits (aid, sid, pid, request_date) values ('assign01', 'dutchprostudent22', 'dietje', '2014-02-14 20:41:08');
+insert into submits (aid, sid, pid, request_date) values ('assign02', 'lferreirapires', 'dietje', '2014-02-14 20:41:42');
+insert into submits (aid, sid, pid, request_date, feedback_date, grade) values ('level01', 'group00', 'dietje', '2014-02-14 20:42:01', '2014-02-14 20:42:01', 7.6);
+insert into submits (aid, sid, pid, request_date, feedback_date, grade) values ('level02', 'group00', 'dietje', '2014-02-14 20:43:01', '2014-02-14 20:43:02', 8.3);
+insert into submits (aid, sid, pid, request_date) values ('level01', 'group01', 'dietje', '2014-02-14 20:42:01');
+insert into submits (aid, sid, pid, request_date) values ('level01', 'group02', 'dietje', '2014-02-14 20:42:01');
+insert into submits (aid, sid, pid, request_date) values ('level01', 'group03', 'dietje', '2014-02-14 20:42:01');
+insert into submits (aid, sid, pid, request_date) values ('level01', 'group04', 'dietje', '2014-02-14 20:42:01');
+insert into submits (aid, sid, pid, request_date) values ('level01', 'group05', 'dietje', '2014-02-14 20:42:01');
+insert into submits (aid, sid, pid, request_date) values ('level01', 'group06', 'dietje', '2014-02-14 20:42:01');
+insert into submits (aid, sid, pid, request_date) values ('level01', 'group07', 'dietje', '2014-02-14 20:42:01');
+insert into submits (aid, sid, pid, request_date) values ('level01', 'group08', 'dietje', '2014-02-14 20:42:01');
+insert into submits (aid, sid, pid, request_date) values ('level01', 'group09', 'dietje', '2014-02-14 20:42:01');
+insert into submits (aid, sid, pid, request_date) values ('level01', 'group10', 'dietje', '2014-02-14 20:42:01');
 
 
 

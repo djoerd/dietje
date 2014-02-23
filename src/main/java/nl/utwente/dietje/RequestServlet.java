@@ -61,7 +61,7 @@ public class RequestServlet extends HttpServlet {
     protected void doWrite(PrintWriter writer, String courseID, String nickname, String assignID) throws IOException {
         DietjeDatabase database = new DietjeDatabase();
         Connection connection = database.connect();
-        String alert = "Prof Dietje will take about ";
+        String alert = "";
         try {
             Map submitted = getSubmitted(connection, courseID, nickname, assignID);
             if (!submitted.containsKey("attempts")) {
@@ -69,15 +69,18 @@ public class RequestServlet extends HttpServlet {
                 insertSubmitted(connection, nickname, assignID);
             }
             else {
-                alert += Integer.toString((Integer) submitted.get("attempts") *5) + " minutes to grade your work.";
+                Integer attempts = (Integer) submitted.get("attempts");
                 String request_date = (String) submitted.get("request_date");
                 String feedback_date = (String) submitted.get("feedback_date");
                 if (feedback_date != null && feedback_date.compareTo(request_date) > 0) {
+                    attempts += 1;
                     updateSubmitted(connection, nickname, assignID, courseID);
                 }
                 else {
-                    alert += " You requested a new grade at " + request_date.substring(0,16);
+                    alert += "You requested a new grade at: " + request_date.substring(0,16) + " h. ";
                 }
+                alert += "Prof. Dietje will take about " + 
+                         Integer.toString(attempts * 5) + " minutes to grade your work. ";
             } 
         } catch (SQLException e) {
             alert = "Prof. Dietje is unable to grade your exam at the moment. Please try again later.";
