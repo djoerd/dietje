@@ -40,7 +40,10 @@ public class FeedbackServlet extends HttpServlet {
                 if (grade != null && grade > 0.0) { feedback.put("grade", grade); }
                 feedback.put("attempts", set.getInt("attempts"));
                 String motivation = set.getString("motivation");
-                if (motivation != null) { feedback.put("motivation", motivation); }
+                if (motivation != null) { 
+                  motivation = motivation.replace("<", "&lt;").replace(">", "&gt;");
+                  feedback.put("motivation", motivation); 
+                }
             }
         } catch (SQLException e) {
             throw new IOException(e);

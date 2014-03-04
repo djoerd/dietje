@@ -14,7 +14,8 @@ create table assignment (
 create table student (
   sid varchar(16) not null, 
   studentNr varchar(16) not null, 
-  realname varchar(32), 
+  realname varchar(32),
+  email varchar(32),
   constraint pk_sid primary key(sid),
   unique(studentNr)
 );

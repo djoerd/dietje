@@ -5,8 +5,8 @@ insert into course (cid, name) values ('utwente-ds', 'Data Science');
 insert into course (cid, name) values ('utwente-ir', 'Information Retrieval');
 insert into course (cid, name) values ('utwente-mdb', 'Managing Big Data');
 -- students
-insert into student (sid, studentNr, realname) values ('djoerd', 'm76426485', 'Djoerd Hiemstra');
-insert into student (sid, studentNr, realname) values ('lferreirapires', 'm72983120', 'Luis Ferreira Pires');
+insert into student (sid, studentNr, realname, email) values ('djoerd', 'm76426485', 'Djoerd Hiemstra', 'hiemstra@cs.utwente.nl');
+insert into student (sid, studentNr, realname, email) values ('lferreirapires', 'm72983120', 'Luis Ferreira Pires', 'pires@cs.utwente.nl');
 insert into student (sid, studentNr) values ('dutchprostudent22', 's01231485');
 insert into student (sid, studentNr, realname) values ('group00', 'group00', 'Klaas, Maurice, Djoerd, Luis');
 insert into student (sid, studentNr) values ('group01', 'group01');
