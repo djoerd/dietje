@@ -7,7 +7,7 @@ insert into course (cid, name) values ('utwente-mdb', 'Managing Big Data');
 -- students
 insert into student (sid, studentNr, realname, email) values ('djoerd', 'm76426485', 'Djoerd Hiemstra', 'hiemstra@cs.utwente.nl');
 insert into student (sid, studentNr, realname, email) values ('lferreirapires', 'm72983120', 'Luis Ferreira Pires', 'pires@cs.utwente.nl');
-insert into student (sid, studentNr) values ('dutchprostudent22', 's01231485');
+insert into student (sid, studentNr) values ('dutchprostudent2', 's01231485');
 insert into student (sid, studentNr, realname) values ('group00', 'group00', 'Klaas, Maurice, Djoerd, Luis');
 insert into student (sid, studentNr) values ('group01', 'group01');
 insert into student (sid, studentNr) values ('group02', 'group02');
@@ -52,7 +52,7 @@ I will grade your results for assign01
 1.1 ok
 1.2 ok');
 insert into submits (aid, sid, pid, request_date) values ('assign01', 'lferreirapires', 'dietje', '2014-02-14 20:36:57');
-insert into submits (aid, sid, pid, request_date) values ('assign01', 'dutchprostudent22', 'dietje', '2014-02-14 20:41:08');
+insert into submits (aid, sid, pid, request_date) values ('assign01', 'dutchprostudent2', 'dietje', '2014-02-14 20:41:08');
 insert into submits (aid, sid, pid, request_date) values ('assign02', 'lferreirapires', 'dietje', '2014-02-14 20:41:42');
 insert into submits (aid, sid, pid, request_date, feedback_date, grade) values ('level01', 'group00', 'dietje', '2014-02-14 20:42:01', '2014-02-14 20:42:01', 7.6);
 insert into submits (aid, sid, pid, request_date, feedback_date, grade) values ('level02', 'group00', 'dietje', '2014-02-14 20:43:01', '2014-02-14 20:43:02', 8.3);

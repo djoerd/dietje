@@ -12,13 +12,15 @@ import java.util.LinkedHashMap;
 public class DietjeDatabase {
 
     private final static String url = 
-      "jdbc:mysql://localhost/dietje?user=dietje&password=";
+      //"jdbc:mysql://localhost/dietje?user=dietje&password=";
+      "jdbc:postgresql://localhost/dietje?user=dietje&password=dietje";
 
     private Connection connection;
 
     public DietjeDatabase() throws IOException {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            //Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
             throw new IOException(e);
         }
@@ -43,7 +45,7 @@ public class DietjeDatabase {
         Map course = new LinkedHashMap<String, Object>();
         try {
             PreparedStatement statement = connection.prepareStatement(
-              "SELECT c.name, c.cid AS tag, COUNT(a.aid) AS nr_assign FROM course c, assignment a WHERE c.cid = a.cid AND c.cid = ?");
+              "SELECT c.name, c.cid AS tag, COUNT(a.aid) AS nr_assign FROM course c, assignment a WHERE c.cid = a.cid AND c.cid = ? GROUP BY c.name, c.cid");
             statement.setString(1, courseID);
             ResultSet set = statement.executeQuery();
             if (set.next()) {
