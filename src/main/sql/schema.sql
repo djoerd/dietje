@@ -12,7 +12,7 @@ create table assignment (
   constraint fk_cid foreign key(cid) references course(cid)
 );
 create table student (
-  sid varchar(16) not null, 
+  sid varchar(24) not null, 
   studentNr varchar(16) not null, 
   realname varchar(32),
   email varchar(32),
@@ -26,7 +26,7 @@ create table professor (
 );
 create table submits (
   aid varchar(16),
-  sid varchar(16),
+  sid varchar(24),
   pid varchar(16),
   request_date timestamp NOT NULL,
   feedback_date timestamp,

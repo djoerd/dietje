@@ -42,6 +42,11 @@ public class CourseServlet extends HttpServlet {
             }
         } catch (SQLException e) {
             throw new IOException(e);
+        } finally {
+            try {
+                connection.close();
+                database.close();
+            } catch (SQLException e) { }
         }
         resultMap.put("courses", courses);
         writer.print(JSONValue.toJSONString(resultMap));

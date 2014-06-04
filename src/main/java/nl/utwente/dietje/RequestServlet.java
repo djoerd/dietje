@@ -85,7 +85,10 @@ public class RequestServlet extends HttpServlet {
         } catch (SQLException e) {
             alert = "Prof. Dietje is unable to grade your exam at the moment. Please try again later.";
         } finally {
-            database.close();
+            try {
+                connection.close();
+                database.close();
+            } catch (SQLException e) { }
         }
 
         Map resultMap = new LinkedHashMap<String, String>();

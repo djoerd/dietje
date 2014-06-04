@@ -59,6 +59,10 @@ public class AssignmentServlet extends HttpServlet {
         List assignments = getAssignments(connection, courseID, nickname);
         resultMap.put("assignments", assignments);
         writer.print(JSONValue.toJSONString(resultMap));
+        try {
+            connection.close();
+            database.close();
+        } catch (SQLException e) { } 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse 

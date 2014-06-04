@@ -64,6 +64,10 @@ public class StudentServlet extends HttpServlet {
             resultMap.put("students", students);
         }
         writer.print(JSONValue.toJSONString(resultMap));
+        try {
+            connection.close();
+            database.close();
+        } catch (SQLException e) { } 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse 
