@@ -27,3 +27,28 @@ function dietjeUrlParameters() {
   return params;
 }
 
+function dietjeMenu(active) {
+  var ca = ' class="active"';
+  var c_active ='', s_active = '', a_active = '', l_active = '';
+
+  if (active == 'courses') { c_active = ca; }
+  else if (active == 'students') { s_active = ca; }
+  else if (active == 'assignments') { a_active = ca; }
+  else if (active == 'login') { l_active = ca; }
+
+  var paramString = window.location.search.substring(1);
+  if (paramString != '') { paramString = '?' + paramString; }
+
+  var result = '<ul class="nav navbar-nav">\n';
+  result += '<li' + c_active + '><a href="courses.html' + 
+            paramString + '">Courses</a></li>';
+  result += '<li' + s_active + '><a href="students.html' +  
+            paramString + '">Students</a></li>';
+  result += '<li' + a_active + '><a href="assignments.html' +  
+            paramString + '">Assignments</a></li>';
+  result += '<li' + l_active + '><a href="login.html' +
+            paramString + '">Login</a></li>';
+  result += '</ul>';
+
+  document.getElementById('topmenu').innerHTML = result;
+}
