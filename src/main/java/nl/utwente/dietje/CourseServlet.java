@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;  
 import java.util.List;  
 import java.util.LinkedHashMap;  
@@ -24,17 +23,21 @@ import nl.utwente.dietje.DietjeDatabase;
 
 public class CourseServlet extends HttpServlet {
 
+    private static final long serialVersionUID = 1L;
+
     protected void doWrite(PrintWriter writer) throws IOException {
-        DietjeDatabase database = new DietjeDatabase();
-        Connection connection = database.connect();
-        Map resultMap = new LinkedHashMap();
-        List courses = new ArrayList<Object>();
+        DietjeDatabase database = null;
+        Connection connection = null;
+        Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
+        List<Map<String, Object>> courses = new ArrayList<Map<String, Object>>();
         try {
+            database = new DietjeDatabase();
+            connection = database.connect();
             PreparedStatement statement = connection.prepareStatement(
               "SELECT c.name, c.cid AS tag, count(DISTINCT s.sid) AS enrolled FROM course c, assignment a, submits s WHERE c.cid = a.cid AND a.aid= s.aid GROUP BY c.name, c.cid");
             ResultSet set = statement.executeQuery();
             while(set.next()) {
-               Map course = new LinkedHashMap<String, Object>();
+               Map<String, Object> course = new LinkedHashMap<String, Object>();
                course.put("name", set.getString("name"));
                course.put("tag", set.getString("tag"));
                course.put("enrolled", set.getInt("enrolled"));

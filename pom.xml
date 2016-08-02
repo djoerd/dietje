@@ -3,9 +3,9 @@
   <groupId>nl.utwente.dietje</groupId>
   <artifactId>dietje</artifactId>
   <packaging>war</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.2.0</version>
   <name>Prof. Dietje</name>
-  <url>http://utwente-di.github.io</url>
+  <url>http://dietje.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

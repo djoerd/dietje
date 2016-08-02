@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -21,11 +20,15 @@ import nl.utwente.dietje.DietjeDatabase;
 
 public class FeedbackServlet extends HttpServlet {
 
+    private static final long serialVersionUID = 1L;
+
     protected void doWrite(PrintWriter writer,  String courseID, String nickname, String assignID) throws IOException {
-        DietjeDatabase database = new DietjeDatabase();
-        Connection connection = database.connect();
-        Map feedback  = new LinkedHashMap<String, Object>();
+        DietjeDatabase database = null;
+        Connection connection = null;
+        Map<String, Object> feedback  = new LinkedHashMap<String, Object>();
         try {
+            database = new DietjeDatabase();
+            connection = database.connect();
             PreparedStatement statement = connection.prepareStatement(
               "SELECT s.aid as tag, a.title, a.description, s.grade, s.attempts, s.feedback as motivation FROM submits s, assignment a WHERE s.aid = a.aid AND a.cid = ? AND s.sid = ? AND s.aid = ?");
             statement.setString(1, courseID);
@@ -48,7 +51,13 @@ public class FeedbackServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new IOException(e);
         }
-        Map resultMap = new LinkedHashMap<String, Object>();
+        finally {
+            try {
+                connection.close();
+                database.close();
+            } catch (SQLException e) { }
+        }
+        Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
         resultMap.put("feedback", feedback);
         writer.print(JSONValue.toJSONString(resultMap));
     }
