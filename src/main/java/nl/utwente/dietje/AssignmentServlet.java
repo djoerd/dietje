@@ -27,7 +27,7 @@ public class AssignmentServlet extends HttpServlet {
     private List<Map<String, Object>> getAssignments(Connection connection, String courseID, String nickname) throws SQLException {
         List<Map<String, Object>> assignments  = new ArrayList<Map<String, Object>>();
         PreparedStatement statement = connection.prepareStatement(
-          "SELECT a.aid as tag, a.title, a.description, s.grade FROM (SELECT * FROM assignment where cid = ?) as a LEFT OUTER JOIN (SELECT * FROM submits where sid = ?) as s ON a.aid = s.aid");
+          "SELECT a.aid as tag, a.title, a.description, s.grade FROM (SELECT * FROM assignment where cid = ?) as a LEFT OUTER JOIN (SELECT * FROM submits where sid = ?) as s ON a.aid = s.aid ORDER BY a.aid");
         statement.setString(1, courseID);
         statement.setString(2, nickname);
         ResultSet set = statement.executeQuery();

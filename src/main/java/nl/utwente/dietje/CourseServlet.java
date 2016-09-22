@@ -34,7 +34,7 @@ public class CourseServlet extends HttpServlet {
             database = new DietjeDatabase();
             connection = database.connect();
             PreparedStatement statement = connection.prepareStatement(
-              "SELECT c.name, c.cid AS tag, count(DISTINCT s.sid) AS enrolled FROM course c, assignment a, submits s WHERE c.cid = a.cid AND a.aid= s.aid GROUP BY c.name, c.cid");
+              "SELECT c.name, c.cid AS tag, count(DISTINCT s.sid) AS enrolled FROM course c, assignment a, submits s WHERE c.cid = a.cid AND a.aid= s.aid GROUP BY c.name, c.cid ORDER BY c.name");
             ResultSet set = statement.executeQuery();
             while(set.next()) {
                Map<String, Object> course = new LinkedHashMap<String, Object>();
