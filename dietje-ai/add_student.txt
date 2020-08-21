@@ -1,0 +1,8 @@
+psql -d di00 -h datainfo.ewi.utwente.nl -U di00
+\dt
+insert into student(sid, studentnr, realname) values ('RStaring', 's1387995', 'Robin Staring');
+insert into submits (aid, sid, pid, request_date) values ('ds1516xml01', 'RStaring', 'dietje', '2016-09-08 14:49:01');
+
+ select studentnr, student.sid, realname from student, submits where student.sid = submits.sid and submits.aid = 'ir01' order by studentnr;
+
+

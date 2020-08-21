@@ -1,0 +1,6 @@
+Scripts for running the 'AI' backend.
+
+The script check_continuously2.pl will check every 5 minutes or so if 
+there are new submissions, and if so, it will run the scripts for
+the corresponding course (under courses).
+Students and courses have to be added to the database manually.

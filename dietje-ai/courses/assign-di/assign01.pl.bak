@@ -1,0 +1,257 @@
+#!/usr/bin/perl -w
+
+$USER = 'djoerd';
+$PASS = 'password';
+
+$STUDENT = 'djoerd';
+$REPO = 'datainfo';
+$TASK = 'practicum01';
+
+$points = 0;
+$TOTAL = 17;
+
+print "Prof. Dietje says: Welcome $USER.\n";
+print "I will grade your results for '$TASK'.\n"; 
+
+
+#
+# Opgave 1.1
+#
+print "Assignment 1.1:\n";
+if (system("git clone https://$USER:$PASS\@github.com/$STUDENT/$REPO >/dev/null") == 0) {
+  $points++;
+  print "  Ok.\n";
+} else {
+  print "  Error: Cannot access https://github.com/$STUDENT/$REPO\n"; 
+  exit 0;
+}
+
+#
+# Get real name and email from github.
+#
+system("curl -i https://api.github.com/users/$STUDENT >check1-1.res");
+if (open(I, "check1-1.res")) {
+  while (<I>) {
+    if (/"name": "([^"]+)"/) {
+      $real_name = $1;
+    }
+    if (/"email": "([^"]+)"/) {
+      $real_email = $1;
+    }
+  }
+  $real_author = "$real_name <$real_email>";
+  close I;
+}
+if (!$real_author) {
+  die "Prof. Dietje says: Woops, my AI program could not identify you correctly on Github.";
+}
+
+
+#
+# Opgave 1.2
+#
+print "Assignment 1.2:\n";
+if (assert_file_exists ("  Error", "$REPO/$TASK")) { exit 0; }
+system("cd $REPO; git log >../check1-2.res");
+if (open(I, "check1-2.res")) {
+  while (<I>) {
+    chop;
+    if (/^Author: (.+)$/i) {
+      $identities{$1}++; 
+    }
+  }
+  close I;
+}
+foreach $id (keys %identities) {
+  if ($real_author !~ /$id/i) {
+    print "Error: Identity used in commit ($id) does not\n";
+    print "correspond with your identity on github ($real_author)\n";
+    print "See the git documentation (use: git congig)\n";
+    $points -= $identities{$id};  # Only place where we remove points, because this can be used to cheat!
+  }
+}
+
+if (assert_file_exists ("  Warning", "$REPO/README.md", "  Ok.") == 0) {
+  system("cat $REPO/README.md | wc -l >readme.res");
+  if (assert_at_least("  Tip: add some lines to README.md", "readme.res", "1") == 0) {
+    $points++;
+  }
+}
+
+
+#
+# Opgave 1.3 (we only check the existence of the file)
+#
+print "Assignment 1.3:\n";
+if (assert_file_exists("Error", "$REPO/$TASK/tom.sql", "  Ok.")) { exit 0; }
+
+
+#
+# Opgave 1.4 
+#
+print "Assignment 1.4:\n";
+if (system("cat $REPO/$TASK/tom.sql | sqlite3 2>error.log") == 0) {
+  $points++;
+} else {
+  print "  SQL errors in $TASK/tom.sql:\n";
+  system ("cat error.log");
+  exit 0;
+}
+# Check number of rows and number of distinct ids:
+$points_before = $points;
+system ("cat check4-1.sql | sqlite3 -init $REPO/$TASK/tom.sql >check4-1.res");
+assert_equals("  Error: Number of rows in table docent", "check4-1.res", "4");
+system ("cat check4-2.sql | sqlite3 -init $REPO/$TASK/tom.sql >check4-2.res");
+assert_equals("  Error: Distinct values of docent_id in docent", "check4-2.res", "4");
+system ("cat check4-3.sql | sqlite3 -init $REPO/$TASK/tom.sql >check4-3.res");
+assert_equals("  Error: Number of rows in table thema", "check4-3.res", "6");
+system ("cat check4-4.sql | sqlite3 -init $REPO/$TASK/tom.sql >check4-4.res");
+assert_equals("  Error: Distinct values of thema_id in thema", "check4-4.res", "6");
+$query = file_content("$REPO/$TASK/tom.sql");
+if ($query =~ /insert[^\(]+\([^\(;]+;/i) {
+  print "Tip: Always include the columns names in the insert statement.\n";
+  print "This way, your queries will still work if the schema is\n";
+  print "altered, for instance if later a column is added.\n";
+}
+else {
+  $points++;
+}
+if ($points == $points_before + 4) {
+  print "  Ok.\n";
+}
+elsif ($points >= $points_before + 4) {
+  print "  Well done.\n";
+}
+
+#
+# Opgave 1.5 and 1.6
+#
+print "Assignment 1.5:\n";
+if (assert_file_exists("Error", "$REPO/$TASK/di.sql")) { exit 0; };
+print "  Ok.\n";
+# find the commits in which di.sql whas changed:
+system("cd $REPO; git log $TASK/di.sql | grep '^commit' >../hashes.res");
+if (open(I, "hashes.res") ) {
+  @lines = <I>;
+  close I;
+  $nr = 0; 
+  foreach (reverse @lines) {
+    $nr++;
+    chop;
+    ($comm, $hash) = split;
+    system("cd $REPO; git checkout -b branch$nr $hash");
+    # Assignment 1.5: to check if '24' appears in any comment
+    system("grep '\\-\\-' $REPO/$TASK/di.sql >>check5-1.res"); # BEWARE: double excaping!
+    # Assignment 1.6: to check if 'join' was not used any where:
+    system("cat $REPO/$TASK/di.sql | sed -e 's/\\-\\-.*\$//' | grep -i 'join' >>check6-1.res");
+    # Overall: to check if any query produces an error.
+    system("cat $REPO/$TASK/di.sql | sqlite3 -init schema7-1.sql 1>>/dev/null 2>>error-all.res");
+  }
+  assert_equals("  Warning: A comment should contain the number of rows", "check5-1.res", "24");
+}
+else {
+  die "Prof. Dietje says: 'Woops, my AI program crashed.";
+}
+
+
+#
+# Opgave 1.6
+#
+print "Assignment 1.6:\n";
+print "  Ok.\n";
+if (-s "check6-1.res") {
+  print "  Warning: Use the WHERE-clause instead of explicit JOIN.\n";
+}
+else {
+  $points++;
+}
+
+
+#
+# Opgave 1.7
+#
+print "Assignment 1.7:\n";
+system ("cd datainfo; git checkout HEAD");
+system("cat $REPO/$TASK/di.sql | sqlite3 -init schema7-1.sql 1>>check7-1.res 2>>error7-1.res");
+if (-s "error7-1.res") {
+  print "  Error: SQL errors:\n";
+  system ("cat error7-1.res");
+}
+elsif (-s "check7-1.res") {
+  print "  Not ok. Your query selects too many rows.\n";
+}
+else {
+  $points++;
+  print "  Ok.\n";
+}
+
+
+#
+# Overall
+#
+system("cd $REPO; git log | grep '^commit' | wc -l >../commits.res");
+assert_at_least("Warning: Number of commits in repository", "commits.res", "6");
+if (-s "error-all.res") {
+  print "Warning: Some of your commits for di.sql give SQL errors.\n";
+  system("cat error-all.res");
+}
+else {
+  $points++;
+}
+
+print "\n";
+if ($points < 0) { $points = 0; }
+print "Points: $points\n";
+if ($points > $TOTAL) { $points = $TOTAL; }
+printf "Grade: %1.1f\n", 10 * $points / $TOTAL;
+
+
+
+sub assert_equals {
+  $assertion = shift @_;
+  $file      = shift @_;
+  $expected  = shift @_;
+  $result = file_content($file);
+  if ($result =~ $expected ) {
+    $points++;
+  } else {
+    print "$assertion. Got $result; expected $expected.\n";
+  }
+}
+
+sub assert_at_least {
+  $assertion = shift @_;
+  $file      = shift @_;
+  $expected  = shift @_;
+  $result = file_content($file);
+  if ($result >= $expected ) {
+    $points++;
+  } else {
+    print "$assertion. Got $result; expected at least $expected.\n";
+  }
+}
+
+sub file_content {
+  $file_name = shift @_;
+  open (I, $file_name) or die "Wooops: $file_name!";
+  my @result = <I>;
+  my $result = join " ", @result;
+  $result =~ s/\n//;
+  return $result;
+}
+
+
+sub assert_file_exists {
+  $message = shift @_;
+  $file_name = shift @_;
+  $response = shift @_;
+  if (-e $file_name) {
+    if ($response) { print "  Ok.\n"; }
+    $points++;
+    return 0;
+  } else {
+    print "$message: $file_name does not exist.\n";
+    return 1; 
+  }
+}
+

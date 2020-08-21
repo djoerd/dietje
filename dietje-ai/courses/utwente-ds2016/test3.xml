@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<VOC>
+  <voyage>
+    <number>4408</number>
+    <trip>3</trip>
+    <leftpage>
+      <boatname>BRESLAU</boatname>
+      <master>Jan Kornelis Roos</master>
+      <tonnage>1150</tonnage>
+      <bought>1774</bought>
+      <hired>1774</hired>
+      <built>1774</built>
+      <yard>A</yard>
+      <chamber>Z</chamber>
+      <departure>1783-02-15</departure>
+      <harbour>Rammekens</harbour>
+      <callatcape>
+        <arrival>1783-05-27</arrival>
+        <departure>1783-06-12</departure>
+      </callatcape>
+      <destination>
+        <arrival>1783-08-06</arrival>
+        <harbour>Batavia</harbour>
+      </destination>
+    </leftpage>
+    <rightpage>
+      <onboard>
+        <total>
+          <one>124</one>
+          <two>1</two>
+          <three>0</three>
+        </total>
+      </onboard>
+      <particulars><next>8101</next> The BRESLAU flew the Prussian flag ?#? After having arrived at Batavia the ship sailed on to China, where it cast anchor on 11-10-1783. 4408/8101 Is the third voyage of this ship, which during its preceding voyages was called BLOK (numbers of the second voyage: 4327/8049).</particulars>
+    </rightpage>
+  </voyage>
+  <voyage>
+    <number>4409</number>
+    <trip>1</trip>
+    <leftpage>
+      <boatname>LES DEUX SOEURS</boatname>
+      <master>Blankman</master>
+      <tonnage>582</tonnage>
+      <bought>1781</bought>
+      <yard>Brugge</yard>
+      <chamber>Z</chamber>
+      <departure>1783-02-15</departure>
+      <harbour>Lorient</harbour>
+      <callatcape>
+        <arrival>1783-06-14</arrival>
+      </callatcape>
+      <destination>
+        <arrival>(1783-06-14)</arrival>
+        <harbour>The Cape</harbour>
+      </destination>
+    </leftpage>
+    <rightpage>
+      <onboard>
+        <total>
+          <one>46</one>
+        </total>
+      </onboard>
+      <particulars><next>8098</next> LES DEUX SOEURS was bound for the Cape.</particulars>
+    </rightpage>
+  </voyage>
+</VOC>

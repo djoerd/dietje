@@ -1,0 +1,40 @@
+<!ELEMENT VOC (voyage)*>
+<!ELEMENT voyage (number, trip?, leftpage, rightpage)>
+<!ELEMENT number (#PCDATA)>
+<!ELEMENT trip (#PCDATA)>
+<!ELEMENT leftpage ((trip_sup | num_support | number_sup)?, boatname?, master?, tonnage?, type_of_boat?, (bought | hired | built)?, yard?, chamber*, departure?, harbour*, callatcape?, destination?)>
+<!ELEMENT rightpage ((trip_sup | num_support | number_sup)?, onboard, invoice*, particulars?, next?)>
+<!ELEMENT boatname (#PCDATA)>
+<!ELEMENT master (#PCDATA)>
+<!ELEMENT tonnage (#PCDATA)>
+<!ELEMENT bought (#PCDATA)>
+<!ELEMENT hired (#PCDATA)>
+<!ELEMENT built (#PCDATA)>
+<!ELEMENT yard (#PCDATA)>
+<!ELEMENT chamber (#PCDATA)>
+<!ELEMENT departure (#PCDATA | harbour)*>
+<!ELEMENT harbour (#PCDATA | harbour)*>
+<!ELEMENT callatcape (arrival, departure?)>
+<!ELEMENT destination (#PCDATA | arrival | departure | harbour)*>
+<!ELEMENT onboard (seafarers | soldiers | craftsmen | impotenten | passengers | total)*>
+<!ELEMENT particulars (#PCDATA | next)*>
+<!ELEMENT arrival (#PCDATA)>
+<!ELEMENT craftsmen (one?, two?, three?, four?, five?, six?)>
+<!ELEMENT impotenten (one?, two?, three?)>
+<!ELEMENT passengers (one?, two?, three?, four?, five?, six?)>
+<!ELEMENT seafarers (one?, two?, three?, four?, five?, six?)>
+<!ELEMENT soldiers (one?, two?, three?, four?, five?, six?)>
+<!ELEMENT total (one?, two?, three?, four?, five?, six?)>
+<!ELEMENT next (#PCDATA)>
+<!ELEMENT one (#PCDATA)>
+<!ELEMENT two (#PCDATA)>
+<!ELEMENT three (#PCDATA)>
+<!ELEMENT four (#PCDATA)>
+<!ELEMENT five (#PCDATA)>
+<!ELEMENT six (#PCDATA)>
+<!ELEMENT trip_sup (#PCDATA)>
+<!ELEMENT number_sup (#PCDATA)>
+<!ELEMENT invoice (#PCDATA)>
+<!ELEMENT type_of_boat (#PCDATA)>
+<!ELEMENT num_support (#PCDATA)>
+
